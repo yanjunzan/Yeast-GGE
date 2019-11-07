@@ -13,11 +13,11 @@ All the analysis are performed using customised code in R programming language (
 All code is provided in ./bin and a summary of the analysis is avaliable as ./bin/Zan_carlborg_summary.R
 
 ## Requirement
-Following R packages are required to run the script:
-  GenABEL pakcage  V1.8.0
-  igraph  package  V1.2.1
-  lmtest  package  V0.9-34
-  corrplot package V0.77
+Following R packages are required to run the script:\
+  GenABEL pakcage  V1.8.0\
+  igraph  package  V1.2.1\
+  lmtest  package  V0.9-34\
+  corrplot package V0.77\
 which can be installed by typing install.package("PACKAGE_NAME")
 
 ## Bug report
