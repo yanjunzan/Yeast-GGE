@@ -10,7 +10,7 @@ Version: V1
 ## Introduction
 All the analysis are performed using customised code in R programming language (version V3.3.1) on a iMac (x86_64-apple-darwin13.4.0)
 
-All code is provided in ./bin and a summary of the analysis is avaliable as ./bin/Zan_carlborg_summary.R
+All analysis scripts are provided in ./bin and a summary of the analysis is avaliable as ./bin/Zan_carlborg_summary.R
 
 ## Requirement
 Following R packages are required to run the script:\
