@@ -112,7 +112,7 @@ load("./data/yeast.GenABEL.Data")
 # Bloom et al performed QTL mapping for each medium independently, and provided a list of 
 # QTL for each medium(avaialbe as Supplementary information ncomms9712-s4.txt). As Loci mapped
 # for these medium might be in LD with each other, we first run a multi-locus analysis to select a
-# independent set of loci for each medium and compile a list of addtive loci.
+# independent set of loci for each medium and compile a list of additive loci contributing to growth in at least 1 enviroment.
 
 ### in GenABLE data the phenotype name need to match the medium
 trait.name <- paste(paste("trait", 1:20, sep = "_"), "mean", sep = ".")
@@ -136,11 +136,15 @@ mrk.idp4 <- remove_tight.loci(SNPs =chr.loca.full,genable = data,cut_dis = 20e3,
 #length(unique(mrk.idp3$snp))
 length(unique(mrk.idp4$snp))
 geno <- as.double.gwaa.data(data[,unique(mrk.idp4$snp)])
+##################################################
+#>>> Please note that part is paralleled across 7 threads, and will run very long time
+##################################################
+
 library(doSNOW)
 library(foreach)
 ptm <- proc.time()
 #BE_all_traits <- 
-cl <- makeCluster(7)
+cl <- makeCluster(7) # update this accroding to your computer
 registerDoSNOW(cl)
 foreach(i = 1:length(phe.pick)) %dopar% {
   source(file = "./bin/Functions.yeast.R")
@@ -218,16 +222,16 @@ write.table(out,file = "./results/181030_test_for_polygenetic.txt",row.names = F
 
 
 ##################################################################################################################################
-#>>>>>>>>>>>testing for QTL by E interaction
+#>>>>>>>>>>>testing for QTL by medium interaction
 ##################################################################################################################################
 trait_picked <- trait.name[-c(18,19)]
 qtl_select <- unique(unlist(qtl)) 
-out_inter_qtl <- fit.GbyE.allele(trait = trait_picked,genable = data,snp_test =qtl_select )
+out_inter_qtl <- fit.GbyE.allele(trait = trait_picked,genable = data,snp_test =qtl_select ) # a function to do the test
 #sum(out_inter_qtl$GxE=="Yes")/nrow(out_inter_qtl)
 write.table(out_inter_qtl,file = "./results/181031_Table_S2_P_value_QTLxE.txt", sep = "\t", row.names = F,col.names = T,quote = F) #The pairwise interactions mapped in Bloom2015
 
 ##################################################################################################################################
-#>>>>>>>>>>>Visulize phenotypic pca across medium
+#>>>>>>>>>>>Visulize phenotypic PCA plot across medium
 ##################################################################################################################################
 source("./bin/181002_Figure_phenotypic_cor.R")
 
