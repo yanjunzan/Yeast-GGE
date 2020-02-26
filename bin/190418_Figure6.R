@@ -1,5 +1,7 @@
 save(trait_ordered,file = "./results/trait_ordered.RData")
 load("./results/trait_ordered.RData")
+load("./data/yeast.GenABEL.Data")
+require(GenABEL)
 ## plot the VA VG V
 ##########################################################################
 rh <- read.table("doc/repeatibility_heritibility.txt",header=T,stringsAsFactors = F)
